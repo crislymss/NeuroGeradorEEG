@@ -1,21 +1,34 @@
-from flask import Blueprint, render_template, request, send_file
+from flask import Blueprint, render_template, request, send_file, redirect, url_for, flash
+from werkzeug.utils import secure_filename
 import os
-import zipfile
-from faker import Faker
-import numpy as np
-import pyedflib
-import torch
-from datetime import datetime
-import tempfile
-from pathlib import Path
+import io
 import sys
+import base64
+import zipfile
+import tempfile
+from datetime import datetime
+from pathlib import Path
+
+import numpy as np
+import torch
+import pyedflib
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from faker import Faker
+
 from app.generator import Generator
 
-sys.path.append(str(Path(__file__).parent.parent))
 
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'edf'}
+
+
+sys.path.append(str(Path(__file__).parent.parent))
 bp = Blueprint('main', __name__)
 
 fake = Faker()
+
 
 @bp.route('/gerador2')
 def gerador2_page():
@@ -75,36 +88,32 @@ def adjust_amplitude(signal, target=AMPLITUDE_TARGET):
 def generate_eeg_signal(generator, duration_min, channels):
     try:
         total_samples = int(duration_min * 60 * SAMPLE_RATE)
-        samples_per_segment = SAMPLE_RATE * 10  # O gerador produz blocos de 10s (2500 amostras)
+        samples_per_segment = SAMPLE_RATE * 10  
         
-        # Calcula quantos blocos de 10s precisamos gerar
+     
         num_segments = int(np.ceil(total_samples / samples_per_segment))
 
         all_channels_signals = []
-        # Loop para cada CANAL
+   
         for _ in channels:
             channel_segments = []
             
-            # Loop para cada SEGMENTO DE TEMPO de 10s
+          
             for _ in range(num_segments):
                 with torch.no_grad():
-                    # Gera um NOVO ruído e um NOVO bloco de 10s a cada iteração
                     z = torch.randn(1, LATENT_DIM)
                     synthetic_wave_segment = generator(z).cpu().numpy().flatten()
                     
-                    # Ajusta a amplitude de cada segmento individualmente
                     adjusted_segment = adjust_amplitude(synthetic_wave_segment) * 0.8
                     channel_segments.append(adjusted_segment)
 
-            # Concatena todos os blocos GERADOS (e diferentes) para formar o sinal completo do canal
             full_channel_signal = np.concatenate(channel_segments)
             
-            # Garante que o sinal final tem o tamanho exato, cortando o excesso
             full_channel_signal = full_channel_signal[:total_samples]
             
             all_channels_signals.append(full_channel_signal)
 
-        # Empilha os sinais de todos os canais
+  
         eeg_data = np.stack(all_channels_signals, axis=1)
         print(f"Shape final do EEG gerado (com variabilidade): {eeg_data.shape}")
         return eeg_data
@@ -138,7 +147,6 @@ def create_edf(eeg_data, channels, patient_info, wave_type):
             f.setPatientName(patient_info.get('name', '')[:80])
             f.setRecordingAdditional(f"SYNTH_{wave_type.upper()}".replace(" ", "_")[:80])
 
-            # Adiciona data de nascimento e gênero no campo adicional do paciente (máximo 80 chars)
             additional_info = f"BirthDate: {patient_info.get('birth_date', '')}; Gender: {patient_info.get('gender', 'N/A')}"
             f.setPatientAdditional(additional_info[:80])
 
@@ -202,7 +210,7 @@ def generate_group():
         age_max = int(request.form.get('age_max'))
         duration_minutes = int(request.form.get('duration_minutes'))
         selected_channels = request.form.getlist('channels')
-        wave_type = request.form.get('waves')  # só uma onda, pega direto
+        wave_type = request.form.get('waves')  
 
         if not selected_channels:
             return "Por favor, selecione pelo menos um canal.", 400
@@ -210,7 +218,7 @@ def generate_group():
         if not wave_type:
             return "Por favor, selecione uma onda predominante.", 400
 
-        # Carrega o modelo baseado na onda selecionada
+
         generator = load_model(wave_type)
         if not generator:
             return f"Modelo {wave_type} não carregado.", 500
@@ -218,11 +226,11 @@ def generate_group():
         edf_files = []
 
         for _ in range(num_people):
-            # Gera nome e data de nascimento aleatória
+          
             name = fake.name()
             birthdate = fake.date_of_birth(minimum_age=age_min, maximum_age=age_max)
 
-            # Gera os dados multi-canais para essa pessoa
+      
             eeg_data = generate_eeg_signal(generator, duration_minutes, selected_channels)
             if eeg_data is None:
                 return "Erro na geração dos dados EEG.", 500
@@ -232,14 +240,14 @@ def generate_group():
                 'birth_date': birthdate.strftime("%Y-%m-%d"),
             }
 
-            # Cria o arquivo EDF para essa pessoa
+          
             edf_path = create_edf(eeg_data, selected_channels, patient_info, wave_type)
             if not edf_path:
                 return "Erro ao criar arquivo EDF.", 500
 
             edf_files.append(edf_path)
 
-        # Cria arquivo zip com todos os EDFs gerados
+
         zip_filename = f'eeg_group_{datetime.now().strftime("%Y%m%d_%H%M%S")}.zip'
         zip_path = os.path.join(os.getcwd(), 'app', 'static', 'generated_files', zip_filename)
 
@@ -247,31 +255,11 @@ def generate_group():
             for index, edf_file in enumerate(edf_files):
                 zipf.write(edf_file, f'Pessoa_{index+1}.edf')
 
-        # Opcional: apagar arquivos EDF temporários após zip
-        # for f in edf_files:
-        #     os.remove(f)
 
         return send_file(zip_path, as_attachment=True)
 
     return render_template('gerador2.html')
 
-
-#visualização dos edf na aplicação
-import os
-import io
-import base64
-import matplotlib
-matplotlib.use('Agg')  # Importante: use antes de importar pyplot
-import matplotlib.pyplot as plt
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pyedflib
-from flask import render_template, request, redirect, url_for, flash
-from werkzeug.utils import secure_filename
-
-UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'edf'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
