@@ -1,0 +1,513 @@
+/* Remove as margens e preenchimentos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.top-bar {
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    width: 100%;
+    /* Garante que a barra superior ocupe toda a largura */
+}
+
+.top-bar img {
+    width: 100px;
+    height: auto;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* Garante que o container ocupe toda a largura */
+}
+
+.imagem-ufpi {
+    position: absolute;
+    top: 20px;
+    /* Ajuste conforme necessário */
+    right: 4%;
+    /* Ajuste conforme necessário */
+    width: 50px;
+    /* Ajuste conforme necessário */
+    height: 50px;
+    /* Ajuste conforme necessário */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+
+.logo img{
+    width: 150px;
+    height: auto;
+}
+
+
+/* Centraliza o conteúdo */
+.menu-topo ul {
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.menu-topo ul li.active a {
+    border-bottom: 2px solid #BBBBBB;
+    /* Adiciona uma linha na parte inferior do link */
+}
+.menu-topo {
+    width: 100%;
+    /* Faz o menu ocupar toda a largura */
+}
+
+.menu-topo ul {
+    display: flex;
+    justify-content: center;
+    /* Centraliza os itens do menu */
+    padding: 20px;
+    /* Remove o padding padrão */
+    list-style-type: none;
+    /* Remove os marcadores de lista */
+}
+
+.menu-topo ul li {
+    display: inline-block;
+    margin-right: 40px;
+    /* Espaçamento à direita entre os itens */
+}
+
+.menu-topo ul li:last-child {
+    margin-right: 200px;
+    /* Remove o espaçamento à direita do último item */
+}
+
+/* Remove o estilo de link padrão */
+.menu-topo ul li a {
+    text-decoration: none;
+    color: inherit;
+    /* Herda a cor do texto do elemento pai */
+}
+
+
+/*Efeito de rolagem do site*/
+html {
+    height: 100vh;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #dfecf0;
+}
+
+header {
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+header.rolagem {
+    background-color: white;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container-gerador {
+    flex: 1;
+    margin: 30px;
+
+}
+
+.card {
+    padding: 20px;
+    background-color: white;
+    border-radius: 0px 20px 0px 20px;
+    display: flex;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.texto {
+    width: 50%; /* Ajuste a largura conforme necessário */
+}
+
+.texto h1 {
+    font-size: 2.5em;
+    /* Tamanho grande para o título */
+    margin-bottom: 20px;
+    color:#2f507a;
+    
+    /* Espaço abaixo do título */
+}
+
+.texto p {
+    font-size: 1.2em;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    margin-bottom: 20px;
+    /* Tamanho menor para o texto */
+}
+
+.imagem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    /* Ajuste a largura conforme necessário */
+}
+
+.imagem img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-bottom: 20px;
+    margin-left: 135px;
+    /* Adiciona margem à direita */
+}
+
+.botao {
+    background-color: #8993F2;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 15px;
+    margin-left: 50px;
+}
+
+
+
+.informacoes {
+    width: 90%;
+    max-width: 1200px;
+    /* Alterado para mover o conteúdo mais para a esquerda */
+    padding: 35px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Estilo para cabeçalhos */
+
+.informacoes h5 {
+    margin-top: 20px;
+    /* Adiciona espaçamento acima dos cabeçalhos */
+    color: #2c3e50;
+    /* Define a cor dos cabeçalhos */
+    font-family: 'Roboto', sans-serif;
+    /* Garante que a fonte dos cabeçalhos seja a mesma que o corpo do texto */
+    font-size: 24px;
+        /* Define o tamanho da fonte do h2 */
+    font-weight: bold;
+    margin: 0 0 10px 0;
+        /* Deixa o texto do h2 em negrito */
+}
+
+
+
+/* Estilo para parágrafos */
+.informacoes p {
+    margin-bottom: 20px;
+    /* Adiciona espaçamento abaixo dos parágrafos */
+    text-align: left;
+    /* Garante que o texto esteja alinhado à esquerda */
+}
+
+/* Estilo para listas */
+.informacoes ul {
+    list-style-type: disc;
+    /* Define o estilo da lista */
+    margin-left: 20px;
+    /* Adiciona margem à esquerda para indentação da lista */
+}
+
+.imagem-canal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    /* Ajuste a largura conforme necessário */
+}
+
+.imagem-canal img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    margin-bottom: 20px;
+    margin-left: 135px;
+    /* Adiciona margem à direita */
+}
+
+/* RESET BÁSICO E FONTES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #dfecf0;
+}
+
+/* ESTILOS DO CABEÇALHO (TOP-BAR) */
+.top-bar {
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+.menu {
+    flex-grow: 1;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-bottom: 5px;
+    transition: border-bottom 0.3s ease;
+}
+
+.menu ul li a:hover,
+.menu ul li.active a {
+    color: #000;
+    border-bottom: 2px solid #8993F2;
+}
+
+.imagem-ufpi {
+    width: 50px;
+    height: 50px;
+}
+
+.imagem-ufpi img {
+    width: 100%;
+    height: auto;
+}
+
+/* ESTILOS DA SEÇÃO PRINCIPAL (HERO) */
+.container-gerador {
+    padding: 30px;
+}
+
+.container-gerador .card {
+    padding: 40px;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.container-gerador .texto {
+    flex: 1;
+    min-width: 300px;
+}
+
+.container-gerador .texto h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #5f6869;
+    line-height: 1.2;
+}
+
+.container-gerador .texto p {
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.container-gerador .imagem {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-gerador .imagem img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.container-gerador .botao {
+    background-color: #8993F2;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.container-gerador .botao:hover {
+    background-color: #7a84d9;
+    transform: scale(1.05);
+}
+
+/* ESTILOS DA SEÇÃO DE INFORMAÇÕES (CARDS BONITOS) */
+.info-section {
+    padding: 60px 20px;
+    background-color: #f4f7f6;
+}
+
+.info-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #5f6869;
+    margin-bottom: 40px;
+}
+
+.info-grid {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: 1fr; /* 1 coluna em telas pequenas (mobile-first) */
+}
+
+.info-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.info-card i {
+    font-size: 2.5rem;
+    color: #8993F2;
+    margin-bottom: 20px;
+}
+
+.info-card h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.info-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+    flex-grow: 1; 
+}
+
+/* LAYOUT RESPONSIVO PARA OS CARDS */
+@media (min-width: 600px) {
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas para tablets */
+    }
+}
+
+
+@media (min-width: 992px) {
+    .info-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas para desktops */
+    }
+}
+
+.container-gerador-home {
+    flex: 1;
+    margin: 30px;
+
+}
+
+
+.card-home {
+    padding: 20px;
+    background-color: white;
+    border-radius: 0px 20px 0px 20px;
+    display: flex;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+    justify-content: space-between;
+    align-items: center;
+}

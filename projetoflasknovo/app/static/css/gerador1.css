@@ -1,0 +1,246 @@
+/* Remove as margens e preenchimentos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.top-bar {
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    width: 100%;
+    /* Garante que a barra superior ocupe toda a largura */
+}
+
+.top-bar img {
+    width: 100px;
+    height: auto;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* Garante que o container ocupe toda a largura */
+}
+
+.imagem-ufpi {
+    position: absolute;
+    top: 20px;
+    /* Ajuste conforme necessário */
+    right: 4%;
+    /* Ajuste conforme necessário */
+    width: 50px;
+    /* Ajuste conforme necessário */
+    height: 50px;
+    /* Ajuste conforme necessário */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+
+/* Centraliza o conteúdo */
+.menu ul {
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu {
+    width: 100%;
+    /* Faz o menu ocupar toda a largura */
+}
+
+.menu ul {
+    display: flex;
+    justify-content: center;
+    /* Centraliza os itens do menu */
+    padding: 20px;
+    /* Remove o padding padrão */
+    list-style-type: none;
+    /* Remove os marcadores de lista */
+}
+
+.menu ul li {
+    display: inline-block;
+    margin-right: 40px;
+    /* Espaçamento à direita entre os itens */
+}
+
+.menu ul li:last-child {
+    margin-right: 200px;
+    /* Remove o espaçamento à direita do último item */
+}
+
+/* Remove o estilo de link padrão */
+.menu ul li a {
+    text-decoration: none;
+    color: inherit;
+    /* Herda a cor do texto do elemento pai */
+}
+
+.menu ul li.active a {
+    border-bottom: 2px solid #BBBBBB;
+    /* Adiciona uma linha na parte inferior do link */
+}
+.container-gerador {
+    flex: 1;
+    margin: 25px;
+
+
+}
+
+body {
+    background-color:#dfecf0;
+}
+
+.card {
+    padding: 20px;
+    background-color: white;
+    border-radius: 0px 20px 0px 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    align-items: center;
+    
+
+    /* Centraliza o conteúdo */
+    
+}
+
+.texto h1{
+
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #0B0A44;
+
+    /*Espaço entre o */
+ 
+}
+
+.texto p{
+    font-size: 1.3em;
+    color: #0B0A44;
+}
+
+.form-group {
+    align-items: center;
+    margin-bottom: 20px;
+    /* Espaço entre os grupos de formulário */
+}
+
+.form-group p {
+    margin-right: 20px;
+    /* Espaço entre o texto e o input */
+    white-space: nowrap;
+    /* Evita quebra de linha no texto */
+}
+
+.form-group input {
+    flex: 1;
+    /* Faz o input ocupar o espaço restante */
+}
+
+.botao-gerar {
+    background-color: #8993F2;
+    /* Cor de fundo do botão */
+    color: white;
+    /* Cor do texto do botão */
+    padding: 10px 40px;
+    /* Espaçamento interno do botão */
+    border-radius: 5px;
+    /* Bordas arredondadas do botão */
+    border: none;
+    /* Remove a borda do botão */
+    cursor: pointer;
+    /* Muda o cursor para um ponteiro quando você passa o mouse sobre o botão */
+    margin-top: 20px;
+    width: 150px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Centraliza o conteúdo do botão */
+
+
+
+
+}
+
+
+
+.channel-list {
+    margin-top: 5px;
+    /* Espaço entre o título e a lista de canais */
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Define 4 colunas com largura igual */
+    gap: 4px;
+    /* Espaço entre os itens */
+}
+
+.channel-list li {
+    margin-bottom: 5px;
+    /* Espaçamento inferior entre os itens */
+}
+
+/* Opcional: Estilos para os checkboxes e labels */
+.channel-list input[type="checkbox"],
+.channel-list label {
+    margin-right: 5px;
+    /* Espaçamento direita entre checkbox e label */
+}
+
+.channel-list li {
+    margin-bottom: 5px;
+    /* Espaçamento inferior entre os itens */
+}
+
+/* Opcional: Estilos para os checkboxes e labels */
+.channel-list input[type="checkbox"],
+.channel-list label {
+    margin-right: 3px;
+    /* Espaçamento direita entre checkbox e label */
+}
+
+.form-group h7{
+   margin:0 0 20px 0;
+}
+
+.grupos{
+    display: flex;
+    gap:50px;
+}
+
+.container-botao{
+    display: flex;
+    justify-content: center;
+
+}
+
+
+#name {
+    width: 350px;
+    
+}
+
+
+
+

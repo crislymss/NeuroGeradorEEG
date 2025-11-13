@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rodape.css') }}">
+    <script src="{{ url_for('static', filename='js/home_pagina.js') }}" defer></script>
+    <title>Gerador de Dados</title>
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="logo">
+                <a href="{{ url_for('main.index') }}">
+                    <img src="{{ url_for('static', filename='images/image_logo_gerador.png') }}" alt="Logo">
+                </a>
+            </div>
+            
+            <div class="menu-topo">
+                <ul>
+                    <li class="active"><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li class="active"><a href="{{ url_for('main.pagina02_page') }}">Gerador</a></li>
+                    <li class="active"><a href="#info">Informações</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-gerador-home">
+
+        <div class="card-home">
+            <div class="texto">
+            <h1>
+                NeuroGeradorEEG — o seu gerador de dados sintéticos de EEG!
+            </h1>
+            <p style="color:#2c3e50;">
+                O <strong>NeuroGeradorEEG</strong> cria dados sintéticos de EEG de forma realista,
+                permitindo configurar os parâmetros de sua preferência e gerar exames EEG (EDF).
+            </p>
+
+
+            </div>
+            <div class="imagem">
+                <img src="{{ url_for('static', filename='images/imagem_i.png') }}" alt="Brain">
+
+                <button class="botao" onclick="window.location.href='/pagina02'">Começar <i class="bi bi-arrow-right"></i></button> 
+            </div>
+            
+        </div>
+
+    
+    </div>
+
+    <section class="info-section" id="info">
+        <div class="info-container">
+            <h2 class="section-title">Informações Essenciais</h2>
+            <p class="section-subtitle">Tudo o que você precisa saber para começar</p>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="bi bi-cpu-fill"></i>
+                    <h3>O que é um Gerador de Dados Sintéticos?</h3>
+                    <p>Uma ferramenta que cria dados artificiais de EEG para imitar as características de dados reais, superando desafios de coleta e análise.</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="bi bi-activity"></i>
+                    <h3>O que é um Eletroencefalograma (EEG)?</h3>
+                    <p>Técnica não invasiva que mede a atividade elétrica do cérebro. Sinais são captados por eletrodos posicionados no couro cabeludo.</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <h3>O que é um arquivo EDF?</h3>
+                    <p>O European Data Format (EDF) é um formato de arquivo padrão, aberto e não proprietário, para armazenamento de séries temporais médicas.</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="bi bi-volume-mute-fill"></i>
+                    <h3>O que são Ruídos no EEG?</h3>
+                    <p>Interferências indesejadas nos sinais cerebrais, causadas por movimentos musculares, artefatos elétricos ou movimentos oculares.</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <h3>Ondas Cerebrais</h3>
+                    <p><strong>Alpha:</strong> Relaxamento. <strong>Beta:</strong> Foco. <strong>Delta:</strong> Sono profundo. <strong>Theta:</strong> Meditação e intuição.</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="bi bi-diagram-3-fill"></i>
+                    <h3>Eletrodos</h3>
+                    <p>Os eletrodos são posicionados em áreas específicas do cérebro: Pré-frontais, Frontais, Centrais, Parietais e Occipitais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="rodape">
+            <div class="imagem-rodape">
+                <img src="{{ url_for('static', filename='images/image 3.png') }}" alt="logo">
+            </div>
+            
+            <div class="info">
+                <div class="botoes">
+                    <button onclick="copyEmail()">
+                        <i class="bi bi-envelope-fill"></i> crisly.santos@ufpi.edu.br
+                    </button>
+                </div>
+                <p>Endereço: R. Cícero Duarte, 905 © 2024, Junco - Picos - PI - CEP:64607-670</p>
+                <p>Universidade Federal do Piauí - UFPI Campus Senador Helvídio Nunes de Barros</p>
+            </div>
+
+            <div class="imagem-rodape-direita">
+                <img src="{{ url_for('static', filename='images/image 4.png') }}" alt="logo">
+            </div>
+        </div>
+    </footer>
+    </body>
+</html>

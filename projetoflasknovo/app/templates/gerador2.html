@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gerador de EEG para Grupo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css1gerador.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/top-bar.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rodape.css') }}" />
+
+    <style>
+        /* --- INÍCIO DAS ALTERAÇÕES --- */
+        html, body { /* Seleciona tanto o html quanto o body para um reset completo */
+            margin: 0; /* Zera a margem padrão do navegador */
+            padding: 0; /* Zera o padding padrão do navegador */
+            width: 100%; /* Garante que ocupem 100% da largura */
+        }
+        body {
+            /* background: 2; <-- Esta linha estava com um valor inválido, troquei para um padrão seguro */
+            background-color: #dfecf0; /* Um cinza claro ou branco para o fundo */
+        }
+     
+        .container {
+            max-width: 720px;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: #0B0A44;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .btn-voltar {
+            margin-right: 10px;
+        }
+        /* Ajustes para a lista de canais */
+        .channel-list {
+            max-height: 180px;
+            overflow-y: auto;
+            padding-left: 0;
+            list-style: none;
+        }
+        .channel-list li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar-top">
+        <div class="container-top">
+            <div class="logo">
+                <a href="{{ url_for('main.index') }}" style="display:inline-block;">
+                    <img src="{{ url_for('static', filename='images/image_logo_gerador.png') }}" alt="Logo" style="max-height:90px; width:auto;">
+                </a>
+                
+            </div>
+            
+
+            <div class="menu">
+                <ul>
+                    <li class="active"><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li class="active"><a href="{{ url_for('main.pagina02_page') }}">Gerador</a></li>
+                
+                </ul>
+            </div>  
+        </div>
+
+
+    </div>
+
+    <div class="container">
+        <h1>Gerador de EEG Grupo</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="/generate_group">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="num_people" class="form-label fw-semibold">Número de Pessoas</label>
+                    <input type="number" class="form-control" id="num_people" name="num_people" min="1" required />
+                </div>
+                <div class="col-md-3">
+                    <label for="age_min" class="form-label fw-semibold">Idade Mínima</label>
+                    <input type="number" class="form-control" id="age_min" name="age_min" min="1" required />
+                </div>
+                <div class="col-md-3">
+                    <label for="age_max" class="form-label fw-semibold">Idade Máxima</label>
+                    <input type="number" class="form-control" id="age_max" name="age_max" min="1" required />
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="duration_minutes" class="form-label fw-semibold">Duração do EEG (minutos)</label>
+                <input type="number" class="form-control" id="duration_minutes" name="duration_minutes" min="1" required />
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Canais de EEG</label>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="select_all_channels" />
+                    <label class="form-check-label" for="select_all_channels">Selecionar todos</label>
+                </div>
+                <div class="row channel-list">
+                    {% for channel in channels %}
+                    <div class="col-6 col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input channel-checkbox" type="checkbox" id="channel_{{ channel }}" name="channels" value="{{ channel }}" />
+                            <label class="form-check-label" for="channel_{{ channel }}">{{ channel }}</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-4">
+            <label for="dominant_wave" class="form-label fw-semibold">Onda Predominante</label>
+                <select class="form-select" id="dominant_wave" name="waves" required>
+                    <option value="" disabled selected>Selecione uma onda...</option>
+                    <option value="alpha">Alpha (8-13 Hz)</option>
+                    <option value="beta">Beta (13-30 Hz)</option>
+                    <option value="theta">Theta (4-8 Hz)</option>
+                    <option value="delta">Delta (0.5-4 Hz)</option>
+                </select>
+            </div>
+
+
+
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary btn-voltar" onclick="history.back()">Voltar</button>
+                <button type="submit" class="btn btn-primary">Gerar EDF</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Selecionar/deselecionar todos os canais
+        document.getElementById('select_all_channels').addEventListener('change', function() {
+            const checked = this.checked;
+            document.querySelectorAll('.channel-checkbox').forEach(cb => {
+                cb.checked = checked;
+            });
+        });
+    </script>
+
+
+ <!-- FOOTER -->
+    <footer>
+        <div class="rodape">
+            <div class="imagem-rodape">
+                <img src="{{ url_for('static', filename='images/image 3.png') }}" alt="logo">
+            </div>
+            
+            <div class="info">
+                <div class="botoes">
+
+                    <button onclick="copyEmail()">
+                        <i class="bi bi-envelope-fill"></i> crisly.santos@ufpi.edu.br
+                    </button>
+                </div>
+
+                <p>Endereço: R. Cícero Duarte, 905 © 2024, Junco - Picos - PI - CEP:64607-670</p>
+                <p>Universidade Federal do Piauí - UFPI Campus Senador Helvídio Nunes de Barros</p>
+                
+            </div>
+
+            <div class="imagem-rodape-direita">
+                <img src="{{ url_for('static', filename='images/image 4.png') }}" alt="logo">
+            </div>
+        </div>
+    </footer>
+    <!-- FIM FOOTER -->
+     
+</body>
+</html>

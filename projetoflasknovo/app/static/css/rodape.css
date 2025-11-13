@@ -1,0 +1,61 @@
+.rodape {
+    background-color: #D8DBE4;
+    display: flex;
+    padding: 2%;
+    box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+.rodape img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+
+}
+
+.rodape p {
+    color: black;
+    font-size: 0.9em;
+}
+
+.info {
+    margin: 20px auto 0;
+    text-align: center;
+
+}
+
+.botoes button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 0.9em;
+    cursor: pointer;
+
+}
+
+.botoes button i {
+    width: 30px;
+    height: auto;
+    margin: 0 10px;
+    color: black;
+    margin-right: -2px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+footer {
+    padding: 0;
+
+
+
+}
+
+.imagem-rodape-direita img {
+    max-width: 500px;
+    margin-bottom: 20px;
+    /* Adiciona margem à direita */
+    margin-top: 50px;
+    /* Adiciona margem acima da imagem */
+}
+
+

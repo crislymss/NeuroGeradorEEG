@@ -1,0 +1,184 @@
+/* RESET BÁSICO E ESTILO DO BODY */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #dfecf0; /* Mesmo fundo da home */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ESTILOS DO CABEÇALHO (TOP-BAR) */
+.top-bar {
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+/* Centraliza o conteúdo */
+.menu ul {
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu {
+    width: 100%;
+    /* Faz o menu ocupar toda a largura */
+}
+
+.menu ul {
+    display: flex;
+    justify-content: center;
+    /* Centraliza os itens do menu */
+    padding: 20px;
+    /* Remove o padding padrão */
+    list-style-type: none;
+    /* Remove os marcadores de lista */
+}
+
+.menu ul li {
+    display: inline-block;
+    margin-right: 40px;
+    /* Espaçamento à direita entre os itens */
+}
+
+.menu ul li:last-child {
+    margin-right: 200px;
+    /* Remove o espaçamento à direita do último item */
+}
+
+/* Remove o estilo de link padrão */
+.menu ul li a {
+    text-decoration: none;
+    color: inherit;
+    /* Herda a cor do texto do elemento pai */
+}
+
+.menu ul li.active a {
+    border-bottom: 2px solid #BBBBBB;
+    /* Adiciona uma linha na parte inferior do link */
+}
+
+.imagem-ufpi {
+    width: 50px;
+    height: 50px;
+}
+
+.imagem-ufpi img {
+    width: 100%;
+    height: auto;
+}
+
+
+/* ESTILOS DA SEÇÃO DE SELEÇÃO */
+.selection-container {
+    max-width: 1100px; /* <<< AJUSTADO */
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+    text-align: center;
+    flex-grow: 1; 
+}
+
+.selection-title {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.selection-subtitle {
+    font-size: 1.1rem;
+    color: #5f6869;
+    margin-bottom: 40px; /* <<< AJUSTADO */
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* <<< AJUSTADO (largura mínima menor) */
+    gap: 20px; /* <<< AJUSTADO (espaço menor entre os cards) */
+}
+
+.option-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 25px 20px; /* <<< AJUSTADO (padding menor) */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option-card:hover {
+    transform: translateY(-5px); /* Efeito de hover mais sutil */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.option-card i {
+    font-size: 2.5rem; /* <<< AJUSTADO (ícone menor) */
+    color: #8993F2;
+    margin-bottom: 15px; /* <<< AJUSTADO */
+}
+
+.option-card h3 {
+    font-size: 1.3rem; /* <<< AJUSTADO (título menor) */
+    color: #2c3e50;
+    margin-bottom: 12px; /* <<< AJUSTADO */
+}
+
+.option-card p {
+    font-size: 0.9rem; /* <<< AJUSTADO (descrição menor) */
+    line-height: 1.5;
+    color: #555;
+    flex-grow: 1;
+    margin-bottom: 25px; /* <<< AJUSTADO */
+}
+
+.option-button {
+    background-color: #8993F2;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 30px; /* <<< AJUSTADO (botão menor) */
+    border-radius: 50px;
+    font-size: 0.9rem; /* <<< AJUSTADO */
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    margin-top: auto; 
+}
+
+.option-button:hover {
+    background-color: #7a84d9;
+    transform: scale(1.05);
+}
+
+/* O CSS do rodapé continua no arquivo rodape.css */

@@ -1,0 +1,17 @@
+body {
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+
+.container {
+    max-width: 900px;
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-check {
+    margin-bottom: 5px;
+}

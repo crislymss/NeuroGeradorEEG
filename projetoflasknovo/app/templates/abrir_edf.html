@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Arquivo EDF</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/top-bar.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rodape.css') }}" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #dfecf0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 80px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #0B0A44;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 10px;
+            color: #0B0A44;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #8993F2;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #8993F2;
+        }
+
+        .message {
+            margin-top: 15px;
+            color: red;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #8993F2;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #8993F2;
+            margin-bottom: 10px;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: inherit;
+            /* Herda a cor do texto do elemento pai */
+        }
+        .menu ul li:last-child {
+            margin-right: 200px;
+            /* Remove o espaçamento à direita do último item */
+        }
+        .menu ul li {
+            display: inline-block;
+            margin-right: 40px;
+            /* Espaçamento à direita entre os itens */
+        }
+        .menu ul {
+            display: flex;
+            justify-content: center;
+            /* Centraliza os itens do menu */
+            padding: 0;
+            /* Remove o padding padrão */
+            list-style-type: none;
+            /* Remove os marcadores de lista */
+        }
+        .menu ul {
+            text-align: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .menu ul li.active a {
+            border-bottom: 2px solid #BBBBBB;
+            /* Adiciona uma linha na parte inferior do link */
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar-top">
+        <div class="container-top">
+            <div class="logo">
+                <a href="{{ url_for('main.index') }}" style="display:inline-block;">
+                    <img src="{{ url_for('static', filename='images/image_logo_gerador.png') }}" alt="Logo" style="max-height:90px; width:auto;">
+                </a>
+                
+            </div>
+            
+
+            <div class="menu">
+                <ul>
+                    <li class="active"><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li class="active"><a href="{{ url_for('main.pagina02_page') }}">Gerador</a></li>
+                
+                </ul>
+            </div>  
+        </div>
+
+
+    </div>
+    <div class="container">
+        <div class="upload-icon">
+            <i class="bi bi-upload"></i>
+        </div>
+        <h1>Enviar Arquivo EDF</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label for="file">Selecione um arquivo .edf</label>
+            <input type="file" name="file" id="file" accept=".edf" required />
+            <button type="submit">Enviar</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="message">
+              {% for msg in messages %}
+                <p>{{ msg }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('main.pagina02_page') }}" class="back-link">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="rodape">
+            <div class="imagem-rodape">
+                <img src="{{ url_for('static', filename='images/image 3.png') }}" alt="logo">
+            </div>
+            
+            <div class="info">
+                <div class="botoes">
+
+                    <button onclick="copyEmail()">
+                        <i class="bi bi-envelope-fill"></i> crisly.santos@ufpi.edu.br
+                    </button>
+                </div>
+
+                <p>Endereço: R. Cícero Duarte, 905 © 2024, Junco - Picos - PI - CEP:64607-670</p>
+                <p>Universidade Federal do Piauí - UFPI Campus Senador Helvídio Nunes de Barros</p>
+                
+            </div>
+
+            <div class="imagem-rodape-direita">
+                <img src="{{ url_for('static', filename='images/image 4.png') }}" alt="logo">
+            </div>
+        </div>
+    </footer>
+    <!-- FIM FOOTER -->
+</body>
+</html>
