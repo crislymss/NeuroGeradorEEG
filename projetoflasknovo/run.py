@@ -1,5 +1,8 @@
+"""Ponto de entrada para executar a aplicação Flask do gerador de EEG em modo debug."""
+
 from app import create_app
 import os
+
 
 app = create_app()
 

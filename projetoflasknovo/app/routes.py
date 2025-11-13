@@ -1,3 +1,5 @@
+"""Rotas HTTP e utilitários da aplicação Flask do gerador de EEG."""
+
 from flask import Blueprint, render_template, request, send_file, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 import os
@@ -32,6 +34,7 @@ fake = Faker()
 
 @bp.route('/gerador2')
 def gerador2_page():
+    """Renderizar a página de geração de EEG para grupos."""
     channels = [
         'F8', 'T4', 'T6', 'Fp2', 'F4', 'C4', 'P4', 'O2', 'Iz', 'Oz',
         'Pz', 'Cz', 'Fz', 'Fpz', 'Nz', 'Fp1', 'F3', 'C3', 'P3', 'O1',
@@ -44,11 +47,13 @@ def gerador2_page():
 
 @bp.route('/pagina02')
 def pagina02_page():
+    """Renderizar a página secundária de informações."""
     return render_template('pagina02.html')
 
 
 @bp.route('/')
 def index():
+    """Renderizar a página inicial."""
     return render_template('home.html')
 
 
@@ -63,6 +68,14 @@ AMPLITUDE_TARGET = 100  # µV
 
 
 def load_model(wave_type):
+    """Carregar o gerador pré-treinado para a onda escolhida.
+
+    Args:
+        wave_type (str): Identificador do arquivo de modelo pré-treinado.
+
+    Returns:
+        Generator or None: Modelo pronto para inferência, ou None em caso de falha.
+    """
     model_path = MODELS_FOLDER / f"{wave_type}_generator.pth"
     if not model_path.exists():
         print(f"ERRO: Arquivo não encontrado em {model_path}")
@@ -82,10 +95,21 @@ def load_model(wave_type):
 
 
 def adjust_amplitude(signal, target=AMPLITUDE_TARGET):
+    """Escalonar o sinal para a amplitude desejada usando normalização min-max."""
     signal = (signal - np.min(signal)) / (np.max(signal) - np.min(signal)) * 2 - 1
     return signal * target
 
 def generate_eeg_signal(generator, duration_min, channels):
+    """Sintetizar dados de EEG multicanal com o gerador especificado.
+
+    Args:
+        generator (Generator): Rede geradora treinada.
+        duration_min (int): Duração desejada do sinal, em minutos.
+        channels (Iterable[str]): Canais que compõem a gravação sintética.
+
+    Returns:
+        numpy.ndarray or None: Amostras geradas no formato [amostras, canais], ou None em caso de erro.
+    """
     try:
         total_samples = int(duration_min * 60 * SAMPLE_RATE)
         samples_per_segment = SAMPLE_RATE * 10  
@@ -123,6 +147,17 @@ def generate_eeg_signal(generator, duration_min, channels):
         return None
     
 def create_edf(eeg_data, channels, patient_info, wave_type):
+    """Persistir os dados de EEG gerados em um arquivo EDF no disco.
+
+    Args:
+        eeg_data (numpy.ndarray): Amostras de EEG geradas.
+        channels (Iterable[str]): Rótulos dos canais para o cabeçalho EDF.
+        patient_info (dict): Metadados do paciente, como nome e data de nascimento.
+        wave_type (str): Identificador da onda predominante.
+
+    Returns:
+        str or None: Caminho temporário do arquivo EDF, ou None se houver falha.
+    """
     try:
         temp_file = tempfile.NamedTemporaryFile(suffix='.edf', delete=False)
         temp_path = temp_file.name
@@ -163,6 +198,7 @@ def create_edf(eeg_data, channels, patient_info, wave_type):
 
 @bp.route('/gerador1', methods=['GET', 'POST'])
 def gerador1():
+    """Processar requisições de síntese de EEG para um paciente e disponibilizar o download."""
     if request.method == 'POST':
         patient_info = {
             'name': request.form.get('patient_name', 'Anonymous'),
@@ -204,6 +240,7 @@ def gerador1():
 #implementado a parte de grupo logo abaixo
 @bp.route('/generate_group', methods=['POST'])
 def generate_group():
+    """Gerar arquivos de EEG para um grupo de pacientes sintéticos e retornar um ZIP."""
     if request.method == 'POST':
         num_people = int(request.form.get('num_people'))
         age_min = int(request.form.get('age_min'))
@@ -262,9 +299,11 @@ def generate_group():
 
 
 def allowed_file(filename):
+    """Retornar True quando a extensão do arquivo for permitida para upload."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def generate_eeg_plot_base64(edf_path, duration_sec=20):
+    """Criar um gráfico em PNG codificado em base64 para parte de uma gravação EDF."""
     f = pyedflib.EdfReader(edf_path)
     n_channels = f.signals_in_file
     signal_labels = f.getSignalLabels()
@@ -291,6 +330,7 @@ def generate_eeg_plot_base64(edf_path, duration_sec=20):
 
 @bp.route('/abrir_edf', methods=['GET', 'POST'])
 def abrir_edf():
+    """Enviar um arquivo EDF, exibir um gráfico de pré-visualização e mostrar metadados."""
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('Nenhum arquivo foi enviado.')

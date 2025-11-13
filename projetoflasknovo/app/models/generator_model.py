@@ -1,8 +1,14 @@
+"""Definição do modelo gerador em PyTorch para síntese de ondas de EEG."""
+
 import torch
 import torch.nn as nn
 
+
 class Generator(nn.Module):
+    """Gerador simples baseado em MLP para produzir amostras de EEG."""
+
     def __init__(self, latent_dim, output_dim):
+        """Construir as camadas do gerador usando as dimensões fornecidas."""
         super(Generator, self).__init__()
         self.model = nn.Sequential(
             nn.Linear(latent_dim, 512),
@@ -16,4 +22,5 @@ class Generator(nn.Module):
         )
 
     def forward(self, z):
+        """Produzir uma amostra sintetizada de EEG a partir do vetor latente `z`."""
         return self.model(z)

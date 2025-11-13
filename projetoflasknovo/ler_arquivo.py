@@ -1,4 +1,4 @@
-#arquivo que realiza a plotagem de um arquivo edf mostrando a onda predominante usando FFT
+"""Plotar um arquivo EDF destacando a banda de frequência dominante via FFT."""
 import mne
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,8 +1,12 @@
+"""Utilitário independente para plotar segmentos de EEG a partir de um arquivo EDF."""
+
 import pyedflib
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def plot_eeg_segment(edf_path, duration_sec=20, output_path='segmento.png'):
+    """Renderizar uma seleção de canais de uma gravação EDF e salvar no disco."""
 
     f = pyedflib.EdfReader(edf_path)
     n_channels = f.signals_in_file

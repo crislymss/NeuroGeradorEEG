@@ -1,4 +1,4 @@
-#arquivo que mostra a frequencia das ondas usando fft
+"""Exibir as frequências dominantes de EEG de um canal EDF usando FFT."""
 
 
 import mne

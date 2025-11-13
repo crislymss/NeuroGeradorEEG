@@ -1,4 +1,4 @@
-#codigo antigo, so da pra escolher apenas um canal no edf
+"""Rotas legadas que geram arquivos EDF de EEG com seleção simples de canais."""
 
 
 from flask import Blueprint, render_template, request, send_file
@@ -28,7 +28,7 @@ AMPLITUDE_TARGET = 100  # µV
 
 
 def load_model(wave_type):
-    """Versão corrigida que carrega o modelo corretamente"""
+    """Carregar o gerador treinado associado ao tipo de onda informado."""
     model_path = MODELS_FOLDER / f"{wave_type}_generator.pth"
     
     if not model_path.exists():
@@ -57,13 +57,13 @@ def load_model(wave_type):
         return None
     
 def adjust_amplitude(signal, target=AMPLITUDE_TARGET):
-    """Ajusta a amplitude do sinal para valores realistas de EEG"""
+    """Normalizar e ajustar o sinal para amplitudes realistas de EEG."""
     signal = (signal - np.min(signal)) / (np.max(signal) - np.min(signal)) * 2 - 1
     return signal * target
 
 
 def generate_eeg_signal(generator, duration_min, channels):
-    """Gera dados EEG com dimensões compatíveis"""
+    """Gerar amostras de EEG compatíveis com o escritor de arquivos EDF."""
     try:
         total_samples = int(duration_min * 60 * SAMPLE_RATE)
         num_channels = len(channels)
@@ -100,7 +100,7 @@ def generate_eeg_signal(generator, duration_min, channels):
     
     
 def create_edf(eeg_data, channels, patient_info, wave_type):
-    """Cria arquivo EDF sem warnings e com metadados válidos"""
+    """Gravar um arquivo EDF contendo os dados sintetizados e metadados."""
     try:
         # Cria arquivo temporário
         temp_file = tempfile.NamedTemporaryFile(suffix='.edf', delete=False)
@@ -148,6 +148,7 @@ def create_edf(eeg_data, channels, patient_info, wave_type):
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
+    """Servir o formulário legado do gerador de EEG e conduzir o fluxo de criação."""
     if request.method == 'POST':
         # Dados do formulário
         patient_info = {

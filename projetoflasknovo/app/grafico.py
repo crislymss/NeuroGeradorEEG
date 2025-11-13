@@ -1,10 +1,22 @@
+"""Funções auxiliares para criar gráficos de EEG a partir de arquivos EDF."""
+
 import io
 import base64
 import matplotlib.pyplot as plt
 import pyedflib
 import numpy as np
 
+
 def generate_eeg_plot_base64(edf_path, duration_sec=20):
+    """Gerar um gráfico multicanal de EEG codificado em PNG base64.
+
+    Args:
+        edf_path (str or Path): Caminho do arquivo EDF a ser visualizado.
+        duration_sec (int, optional): Quantidade de segundos exibidos. Padrão: 20.
+
+    Returns:
+        str: String em base64 representando a imagem do gráfico renderizado.
+    """
     f = pyedflib.EdfReader(edf_path)
     n_channels = f.signals_in_file
     signal_labels = f.getSignalLabels()
